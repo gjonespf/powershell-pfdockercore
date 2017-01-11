@@ -39,8 +39,8 @@ Task Init {
         $Version = Get-Metadata -Path $ENV:BHPSModuleManifest -PropertyName ModuleVersion
 
         $Content = Get-Content "$ProjectRoot\CHANGELOG.md" | Select-Object -Skip 2
-        $CommitMessage = git log --format=%B -n 2
-        $NewContent = @('# PFCore Release History','',"## $($Version)", "### $(Get-Date -Format MM/dd/yyy)", @($CommitMessage),'','',@($Content))
+        $CommitMessage = (git log --format=%B -n 2) | Where-Object {$_}
+        $NewContent = @('# $($ENV:BHProjectName) Release History','',"## $($Version)", "### $(Get-Date -Format MM/dd/yyy)", @($CommitMessage),'','',@($Content))
         $NewContent | Out-File -FilePath "$ProjectRoot\CHANGELOG.md" -Force -Encoding ascii
 
         # Update Release Notes
