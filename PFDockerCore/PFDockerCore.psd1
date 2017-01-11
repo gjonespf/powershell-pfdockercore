@@ -51,8 +51,14 @@ Description = 'Some basic tools for configuring docker setups from config files'
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @( 
-    "PFCore"
+RequiredModules = (
+    @{
+        PFCore=@{
+            ModuleName="PFCore"
+            ModuleVersion="0.1.13"
+            Guid="78ebde1c-d601-4a39-ae36-cb96b600249e"
+        }
+    }
 )
 
 # Assemblies that must be loaded prior to importing this module
