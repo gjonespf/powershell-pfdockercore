@@ -53,11 +53,9 @@ Description = 'Some basic tools for configuring docker setups from config files'
 # Modules that must be imported into the global environment prior to importing this module
 RequiredModules = (
     @{
-        PFCore=@{
-            ModuleName="PFCore"
-            ModuleVersion="0.1.13"
-            Guid="78ebde1c-d601-4a39-ae36-cb96b600249e"
-        }
+        ModuleName="PFCore"
+        ModuleVersion="0.1.13"
+        Guid="78ebde1c-d601-4a39-ae36-cb96b600249e"
     }
 )
 
