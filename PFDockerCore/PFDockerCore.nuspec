@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Package</id>
+    <version>0.0.1</version>
+    <authors>Gavin Jones</authors>
+    <owners>Gavin Jones</owners>
+    <projectUrl>https://github.com/gjonespf/powershell-pfdockercore.git</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Core PowerShell helpers for Docker</description>
+    <releaseNotes>
+    </releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags></tags>
+    <dependencies>
+        PFCore.psm1
+    </dependencies>
+  </metadata>
+</package>
