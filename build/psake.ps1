@@ -40,6 +40,8 @@ Task Init {
 
         $Content = Get-Content "$ProjectRoot\CHANGELOG.md" | Select-Object -Skip 2
         $CommitMessage = (git log --format=%B -n 2) | Where-Object {$_}
+        #Filter commands if starting line
+        $CommitMessage = $CommitMessage | Where-Object { $_ -notmatch "^!deploy" -and $_ -notmatch "^!verbose"} 
         $NewContent = @('# $($ENV:BHProjectName) Release History','',"## $($Version)", "### $(Get-Date -Format MM/dd/yyy)", @($CommitMessage),'','',@($Content))
         $NewContent | Out-File -FilePath "$ProjectRoot\CHANGELOG.md" -Force -Encoding ascii
 
@@ -105,25 +107,4 @@ Task Deploy -Depends Build {
         Recurse = $false # We keep psdeploy artifacts, avoid deploying those : )
     }
     Invoke-PSDeploy @Verbose @Params
-
-    # if ($ENV:BHBuildSystem -ne 'Unknown' -and $ENV:BHBranchName -eq "master" -and $ENV:BHCommitMessage -match '!deploy')
-    # {   
-    #     "$lines`n`n`tSTATUS: Publishing to PSGallery"
-
-    #     Try
-    #     {
-    #         Invoke-PSDeploy @Verbose -Force -Tags 'PSGallery'
-    #     }
-    #     Catch
-    #     {
-    #         Throw
-    #     }
-    # }
-    # else
-    # {
-    #     "Skipping deployment: To deploy, ensure that...`n" +
-    #     "`t* You are in a known build system (Current: $ENV:BHBuildSystem)`n" +
-    #     "`t* You are committing to the master branch (Current: $ENV:BHBranchName) `n" +
-    #     "`t* Your commit message includes !deploy (Current: $ENV:BHCommitMessage)"
-    # }
 }
