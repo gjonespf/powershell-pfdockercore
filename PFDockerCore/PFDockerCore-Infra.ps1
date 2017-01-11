@@ -1,3 +1,4 @@
+#TODO: Test for requisite tools, e.g. docker command
 
 function Update-DockerInfraNetworks
 {
@@ -12,7 +13,7 @@ function Update-DockerInfraNetworks
 
     foreach($net in $cfgnets)
     {
-        if(!($dockerNetworks | ?{ $_.NAME -eq $net.Name })) {
+        if(!($dockerNetworks | Where-Object{ $_.NAME -eq $net.Name })) {
             $netname=$net.Name
             Write-Host "Creating missing network '$netname'"
             $test=(docker network create --driver $net.Driver $net.Name)
@@ -36,7 +37,7 @@ function Update-DockerInfraVolumes
         if( !($dockerVolumes | Where-Object{ $_."VOLUME NAME" -eq $vol.Name}) )  {
             $volname=$vol.Name
             Write-Host "Creating missing volume '$volname'"
-            $tmp=(docker volume create --name $vol.Name --driver $vol.Driver $vol.Options)
+            $tmp=(docker volume create --name $vol.Name --driver $vol.Driver -o $vol.Options)
         }
     }
 }
