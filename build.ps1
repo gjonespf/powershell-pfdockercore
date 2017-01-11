@@ -53,7 +53,7 @@ Get-PackageProvider -Name NuGet -ForceBootstrap | Out-Null
 #PSDepend
 Install-Module PSDepend
 Import-Module PSDepend
-Invoke-PSDepend -Path .\requirements.psd1
+Invoke-PSDepend -Path .\requirements.psd1 -Force -Install -Import
 
 #Resolve-Module Psake, PSDeploy, Pester, BuildHelpers
 
