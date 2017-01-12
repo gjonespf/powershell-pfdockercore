@@ -36,8 +36,14 @@ function Update-DockerInfraVolumes
     {
         if( !($dockerVolumes | Where-Object{ $_."VOLUME NAME" -eq $vol.Name}) )  {
             $volname=$vol.Name
-            Write-Host "Creating missing volume '$volname'"
-            $tmp=(docker volume create --name $vol.Name --driver $vol.Driver -o $vol.Options)
+            if($vol.Options) {
+                Write-Host "Creating missing volume '$volname' options '$($vol.Options)'"
+                $tmp=(docker volume create --name $vol.Name --driver $vol.Driver -o $vol.Options)
+            } else {
+                Write-Host "Creating missing volume '$volname'"
+                $tmp=(docker volume create --name $vol.Name --driver $vol.Driver)
+            }
+
         }
     }
 }
